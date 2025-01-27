@@ -1,15 +1,11 @@
 
-Welcome to Open Source ASIC Design!
+Welcome to your first lab in Open Source ASIC Design!
 
 # Getting Started
-Follow the [Docker Installation](https://github.com/Cal-Poly-Open-Source-ASIC-Class) instructions to make sure docker is installed. If you are on Windows, you should be using WSL for all of this.
+At this point, you should have followed the [Docker Installation](https://github.com/Cal-Poly-Open-Source-ASIC-Class) instructions and have already cloned the [Asic Tools](https://github.com/Cal-Poly-Open-Source-ASIC-Class/asic-tools) repository. 
 
-## Github Setup
-It is highly recommended to use SSH keys to authenticate with github. Generate a key and add it to github:
-- [Generating SSH Key](https://docs.github.com/en/enterprise-server@3.12/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-- [Adding SSH Key to Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
-
-Start by __forking__ this repository, __not__ cloning it. This will create a copy that you own. Then, you can clone and edit your copy of it.
+- Start by __forking__ this repository, __not__ cloning it. This will create a copy that you own.
+- Then, clone your forked copy into the `workspace`  folder. In other words, `cd` into `asic-tools/workspace`, and then `git clone <your forked copy>`
 >#### Forking:
 >![alt text](docs/fork.png)
 
