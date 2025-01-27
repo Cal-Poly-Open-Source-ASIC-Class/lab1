@@ -12,21 +12,6 @@ At this point, you should have followed the [Docker Installation](https://github
 >#### Cloning:
 >![alt text](docs/clone.png)
 
-## Using the Tools
-### Installing Container
-All of the tools you need are bundled in a docker container. To install that container for the first time, `cd` into this repository, run the install script, and log out:
-```
-sudo ./install.sh
-logout
-```
-### Using Container
- To enter the container, `cd` into this repository and type:
-```./run.sh``` 
+# Lab 1 Specification
 
-On success, you should be logged into the docker container, and be in the workspace directory. Make sure any files you create are saved somewhere in the workspace.
-
-![alt text](docs/docker.png)
-
-> [!CAUTION]
-> The workspace directory in the docker container is linked to the workspace folder in the current directory. Any files created in the docker but outside the workspace will NOT persist and will be deleted.
-
+Your task is to design a parameterized Fibonacci accelerator.
