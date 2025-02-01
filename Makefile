@@ -16,9 +16,12 @@ RTL_DIRS	 := $(sort $(dir $(RTL_SRCS)))
 LINT_INCLUDES := $(foreach dir, $(INCLUDE_DIRS) $(RTL_DIRS), -I$(realpath $(dir)))
 
 TEST_DIR = ./tests
-TESTS = $(shell cd $(TEST_DIR) && ls -d */ | grep -v "__pycache__" )
+TESTS = $(basename $(shell cd $(TEST_DIR) && ls -d */ | grep -v "__pycache__" ))
 
 LINTER := verilator
+SIMULATOR := verilator
+SIMULATOR_ARGS := --binary --timing --trace --trace-structs \
+	--assert --timescale 1ns --quiet    
 LINT_OPTS += --lint-only --timing $(LINT_INCLUDES)
 
 # Text formatting for tests
@@ -62,21 +65,19 @@ tests: $(TESTS)
 
 .PHONY: $(TESTS)
 $(TESTS): 
-# Run Makefile in each test directory
-	# @printf $(call test_text,$@)
-	$(MAKE) -C $(TEST_DIR)/$@
-
-# Copy results.xml and coverage.dat to results folder
-	@mkdir -p $(RESULTS_DIR)/$@
-	@cp $(TEST_DIR)/$@/results.xml $(RESULTS_DIR)/$@
-    @cp $(TEST_DIR)/$@/coverage.dat $(RESULTS_DIR)/$@ || :
-
-# If waveform dumping is enabled, copy dump.vcd to results folder
-ifdef WAVES
-	@echo Copying Waves...
-	@cp $(TEST_DIR)/$@/dump.vcd $(RESULTS_DIR)/$@
-endif
+	@printf "\n$(GREEN)$(BOLD) ----- Running Test: $@ ----- $(RESET)\n"
+	@printf "\n$(BOLD) Verilating... $(RESET)\n"
+	@cd $(TEST_DIR)/$@;\
+		$(SIMULATOR) $(SIMULATOR_ARGS) *.sv $(LINT_INCLUDES) > /dev/null 2>&1
+	@printf "\n$(BOLD) Running... $(RESET)\n"
 	
+	
+	@if cd $(TEST_DIR)/$@; ./obj_dir/V*; then \
+			printf "$(GREEN)PASSED $@$(RESET)\n"; \
+		else \
+			printf "$(RED)FAILED $@$(RESET)\n"; \
+		fi; \
+
 .PHONY: clean
 clean:
 # Remove results directory and clean core
