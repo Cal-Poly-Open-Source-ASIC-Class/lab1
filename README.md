@@ -51,18 +51,49 @@ verilator --lint-only --timing <your_verilog_file.sv>
 
 It is good to get in the habit of linting every time you are done writing code. If your code is free of lint errors, the above command will give no output.
 
+It would be a pain to type that every time, so the provided Makefile makes linting easier:
+```
+make lint
+```
+
+
 ## Part 2 - Simulation
 
 With your first draft design complete, it is time to test. Create a directory `tests/<testname>`. In that directory create a test file. Your ultimate path should be `tests/<testname>/<testname>.sv`
 
-> [!NOTE]  
+> [!IMPORTANT]  
 > It is important to put seperate tests in their own directories, as later on tests might involve more than one system verilog file. It would create quite a mess to have a bunch of semi-overlapping tests in the same directory.
 
+Now we can use verilator to compile and run our tests.
 ```
 verilator --timing --trace --binary tests/<testname>/<testname>.sv -I"rtl"
 ```
-What are all these flags doing?
-- Timing lets verilator simulate delays like `#1`
-- Binary tells verilator to make a runnable test file
-- Trace tells verilator to save simulation results to a waveform.
-- `-I` tells verilator to include the following directory when looking for RTL files, enabling it to look in the `rtl` folder
+> [!NOTE]
+> What are all these flags doing?
+> - Timing lets verilator simulate delays like `#1`
+> - Binary tells verilator to make a runnable test file
+> - Trace tells verilator to save simulation results to a waveform.
+> - `-I` tells verilator to include the following directory when looking for RTL files, enabling it to look in the `rtl` folder
+
+This creates a binary file in obj_dir called `V<testname>`. Run the test by executing the binary using `./obj_dir/V<testname>`. If you `ls obj_dir`, it should be the only executable, green item. If you type `./obj_dir/` and hit tab, it should autocomplete.
+
+Running the binary should create a waveform dump file, that ends with `.vcd`. To view the waveform, you can:
+- Open this file in VSCode with the Surfer extension
+- `surfer <name>.vcd` to use surfer through docker to view it. Surfer is newer, smoother, but has less features.
+- `gtkwave <name>.vcd` to use GTKWave through docker to view it. GTKWave is older and clunkier, but with more features like searching for values
+
+Try all of these options and see which one you like. 
+
+### Testbench Features
+So you have a basic testbench and you can view waveforms.
+
+1. First, make sure your tests can fail. Use Assert statements to check conditions programatically.
+```
+$assert (A == B) else $error("It's gone wrong!");
+```
+2. Use a __task__ to abstract the process of writing a value to the accelerator and reading its response. 
+    - A task is like a function that can impact the simulation state. It can drive inputs and have delays.
+3. Use a __function__ to compute the expected value of an Nth fibonacci number. 
+4. Use a for loop to compare the function and task outputs using an assert. This way, you can automatically test as many inputs as you want!
+
+
