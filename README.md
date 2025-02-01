@@ -14,7 +14,7 @@ At this point, you should have followed the [Docker Installation](https://github
 
 # Lab 1 Specification
 
-## Part 1 - RTL
+## Part 1 - RTL Design
 Your task is to design a parameterized Fibonacci accelerator. Create a system verilog file in the `rtl` directory, and give it a name ending in `.sv`.
 
 __System Inputs:__
@@ -57,7 +57,7 @@ make lint
 ```
 
 
-## Part 2 - Simulation
+## Part 2 - Testbench & Simulation
 
 With your first draft design complete, it is time to test. Create a directory `tests/<testname>`. In that directory create a test file. Your ultimate path should be `tests/<testname>/<testname>.sv`
 
@@ -89,11 +89,16 @@ So you have a basic testbench and you can view waveforms.
 
 1. First, make sure your tests can fail. Use Assert statements to check conditions programatically.
 ```
-$assert (A == B) else $error("It's gone wrong!");
+$assert (A == B) else $error("Failed. A: %d, B: %d", A, B);
 ```
-2. Use a __task__ to abstract the process of writing a value to the accelerator and reading its response. 
+2. Use a __[task](https://vlsiverify.com/system-verilog/tasks/)__ to abstract the process of writing a value to the accelerator and reading its response. 
     - A task is like a function that can impact the simulation state. It can drive inputs and have delays.
-3. Use a __function__ to compute the expected value of an Nth fibonacci number. 
+    - Define it within the scope of the module, so that it can drive signals into your accelerator.
+3. Use a __[function](https://www.chipverify.com/systemverilog/systemverilog-functions)__ to compute the expected value of an Nth fibonacci number. 
 4. Use a for loop to compare the function and task outputs using an assert. This way, you can automatically test as many inputs as you want!
 
-
+# Deliverables
+1. In-Lab Waveform Demo
+1. Github Link to your forked lab1
+    - SV Code for your accelerator
+    - SV Testbench with all [testbench features](#testbench-features)
