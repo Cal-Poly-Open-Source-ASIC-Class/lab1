@@ -82,7 +82,14 @@ Running the binary should create a waveform dump file, that ends with `.vcd`. To
 - `surfer <name>.vcd` to use surfer through docker to view it. Surfer is newer, smoother, but has less features.
 - `gtkwave <name>.vcd` to use GTKWave through docker to view it. GTKWave is older and clunkier, but with more features like searching for values
 
-Try all of these options and see which one you like. 
+## Better Workflow
+That was a lot of commands to type to run one simulation. Luckily, the provided Makefile knows how to do that, using:
+- `make tests` to run all tests
+- `make <test_name>` to run a specific test
+>[!NOTE]
+> For the makefile to automatically find your tests, they must be named uniquely and follow the filepath of:
+```tests/<testname>/<testname>.sv```
+
 
 ### Testbench Features
 So you have a basic testbench and you can view waveforms.

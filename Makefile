@@ -16,7 +16,8 @@ RTL_DIRS	 := $(sort $(dir $(RTL_SRCS)))
 LINT_INCLUDES := $(foreach dir, $(INCLUDE_DIRS) $(RTL_DIRS), -I$(realpath $(dir)))
 
 TEST_DIR = ./tests
-TESTS = $(basename $(shell cd $(TEST_DIR) && ls -d */ | grep -v "__pycache__" ))
+TEST_SUBDIRS = $(shell cd $(TEST_DIR) && ls -d */ | grep -v "__pycache__" )
+TESTS = $(TEST_SUBDIRS:/=)
 
 LINTER := verilator
 SIMULATOR := verilator
@@ -67,15 +68,17 @@ tests: $(TESTS)
 $(TESTS): 
 	@printf "\n$(GREEN)$(BOLD) ----- Running Test: $@ ----- $(RESET)\n"
 	@printf "\n$(BOLD) Verilating... $(RESET)\n"
+
 	@cd $(TEST_DIR)/$@;\
-		$(SIMULATOR) $(SIMULATOR_ARGS) *.sv $(LINT_INCLUDES) > /dev/null 2>&1
+		$(SIMULATOR) $(SIMULATOR_ARGS) *.sv $(LINT_INCLUDES) > /dev/null
+
 	@printf "\n$(BOLD) Running... $(RESET)\n"
-	
-	
-	@if cd $(TEST_DIR)/$@; ./obj_dir/V*; then \
+
+	@if cd $(TEST_DIR)/$@; ./obj_dir/V* > results.txt ; then \
 			printf "$(GREEN)PASSED $@$(RESET)\n"; \
 		else \
 			printf "$(RED)FAILED $@$(RESET)\n"; \
+			cat results.txt; \
 		fi; \
 
 .PHONY: clean
