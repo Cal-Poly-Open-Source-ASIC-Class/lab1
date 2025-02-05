@@ -15,7 +15,7 @@ At this point, you should have followed the [Docker Installation](https://github
 # Lab 1 Specification
 
 ## Part 1 - RTL Design
-Your task is to design a parameterized Fibonacci accelerator. Create a system verilog file in the `rtl` directory, and give it a name ending in `.sv`.
+Your task is to design a parameterized Fibonacci accelerator. Create a directory named `rtl`, and create a system verilog file inside it with a name ending in `.sv`.
 
 __System Inputs:__
 - `clk`, assume positive edge triggers
@@ -41,8 +41,7 @@ __System Outputs:__
 - The accelerator holds its output as it waits for `rdy_out`, indicating that the controller/testbench has read the output. The transaction is now complete.
 
 Example Waveform:
-![image](https://github.com/user-attachments/assets/a8a7d38f-fe15-4ce2-b11f-f4877a1ba3b7)
-
+![alt text](docs/waveform.png)
 
 ### Linting
 Now that you have started writing your design, it is time to lint it. This will catch errors such as missed semicolons, unmatched bit widths and types, and issues that may come up later down the line. We will be using the tool Verilator for linting.
