@@ -40,6 +40,10 @@ __System Outputs:__
 - The controller/testbench waits for `vld_out` from the accelerator, indicating it can read the resulting `fib_out`.
 - The accelerator holds its output as it waits for `rdy_out`, indicating that the controller/testbench has read the output. The transaction is now complete.
 
+Example Waveform:
+![image](https://github.com/user-attachments/assets/a8a7d38f-fe15-4ce2-b11f-f4877a1ba3b7)
+
+
 ### Linting
 Now that you have started writing your design, it is time to lint it. This will catch errors such as missed semicolons, unmatched bit widths and types, and issues that may come up later down the line. We will be using the tool Verilator for linting.
 
