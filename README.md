@@ -89,6 +89,9 @@ Running the binary should create a waveform dump file, that ends with `.vcd`. To
 That was a lot of commands to type to run one simulation. Luckily, the provided Makefile knows how to do that, using:
 - `make tests` to run all tests
 - `make <test_name>` to run a specific test
+
+This will leave a waveform `.vcd` file and a `results.txt` log file in the directory of each test being ran.
+
 >[!NOTE]
 > For the makefile to automatically find your tests, they must be named uniquely and follow the filepath of:
 ```tests/<testname>/<testname>.sv```
