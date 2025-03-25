@@ -7,7 +7,7 @@ At this point, you should have followed the [Docker Installation](https://github
 - Start by __using this template__, __not__ cloning it. This will create a copy that you own.
 - Then, clone __your copy__ into the `workspace`  folder. In other words, make sure you are in `~/workspace`, and then `git clone <your forked copy.git>`
 >#### Using as Template:
->![alt text](image.png)
+>![alt text](docs/template.png)
 
 >#### Cloning:
 >![alt text](docs/clone.png)
