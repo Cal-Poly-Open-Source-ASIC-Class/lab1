@@ -22,6 +22,9 @@ end
 
 initial begin
     // Test Goes Here
+
+    // Make sure to call finish so test exits
+    $finish();
 end
 
 endmodule
