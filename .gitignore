@@ -1,3 +1,8 @@
-*obj_dir
+runs/
 *.vcd
-*results.txt
+*a.out
+*log
+*obj_dir
+*sim_build
+*results.xml
+.venv
