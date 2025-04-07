@@ -144,7 +144,7 @@ So you have a basic testbench and you can view waveforms.
 
 1. First, make sure your tests can fail. Use Assert statements to check conditions programatically.
 ```
-$assert (A == B) else $error("Failed. A: %d, B: %d", A, B);
+assert (A == B) else $error("Failed. A: %d, B: %d", A, B);
 ```
 2. Use a __[task](https://vlsiverify.com/system-verilog/tasks/)__ to abstract the process of writing a value to the accelerator and reading its response. 
     - A task is like a function that can impact the simulation state. It can drive inputs and have delays.
